@@ -2,7 +2,12 @@ const editor = document.getElementById('editor');
 const preview = document.getElementById('preview');
 const md = window.markdownit({
   highlight: function (str, lang) {
-    return Prism.highlight(str, Prism.languages.javascript, 'javascript');
+    if (lang && Prism.languages[lang]) {
+      try {
+        return Prism.highlight(str, Prism.languages[lang], lang);
+      } catch (__) {}
+    }
+    return ''; // fallback: no highlight
   }
 });
 
@@ -150,4 +155,25 @@ function insertTable() {
   editor.focus();
 }
 
+function openLangModal() {
+  document.getElementById('codeLangModal').style.display = 'block';
+}
 
+function closeLangModal() {
+  document.getElementById('codeLangModal').style.display = 'none';
+}
+
+function insertCodeBlockWithSelectedLang() {
+  const lang = document.getElementById('modalCodeLangSelect').value;
+  const start = editor.selectionStart;
+  const end = editor.selectionEnd;
+  const selected = editor.value.substring(start, end);
+
+  const newText = `\`\`\`${lang}\n${selected}\n\`\`\`\n`;
+
+  editor.setRangeText(newText, start, end, 'end');
+  closeLangModal();
+  updatePreview();
+  editor.selectionStart = editor.selectionEnd = start + newText.length;
+  editor.focus();
+}
