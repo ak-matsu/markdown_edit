@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Markdownエディタ</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+    <button onclick="wrapSelection('**', '**')">太字</button>
+    <button onclick="wrapSelection('*', '*')">斜体</button>
+    <button onclick="insertLine('# ')">見出し</button>
+    <button onclick="insertLine('- ')">リスト</button>
+    <button onclick="wrapCodeBlock()">コードブロック</button>
+    <button onclick="wrapSelection('[', '](url)')">リンク</button>
+
+    <!-- 追加ボタン -->
+    <button id="togglePreviewBtn">プレビューのみ切替</button>
+
+<!-- コードブロック挿入モーダル -->
+<div id="codeLangModal" style="display:none; position:fixed; top:30%; left:50%; transform:translateX(-50%); background:white; border:1px solid #ccc; padding:1em; z-index:1000;">
+  <label for="modalCodeLangSelect">言語を選択:</label>
+  <select id="modalCodeLangSelect">
+    <option value="javascript">JavaScript</option>
+    <option value="python">Python</option>
+    <option value="html">HTML</option>
+    <option value="css">CSS</option>
+    <option value="bash">Bash</option>
+  </select>
+  <br><br>
+  <button onclick="insertCodeBlockWithSelectedLang()">挿入</button>
+  <button onclick="closeLangModal()">キャンセル</button>
+</div>
+
+    <button onclick="insertCheckList()">チェックリスト</button>
+    <button onclick="insertTable()">テーブル挿入</button>
+    </div>
+
+  <div class="editor-container">
+    <textarea id="editor" placeholder="ここにMarkdownを入力..."></textarea>
+    <div id="preview" class="markdown-body"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

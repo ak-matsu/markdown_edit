@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  background: #f0f0f0;
+  padding: 10px;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.editor-container {
+  flex: 1;
+  display: flex;
+  height: 0; /* flexで高さを割り当てるために0をベースに */
+}
+
+#editor, #preview {
+  flex: 1; /* それぞれ左右半分ずつに */
+  padding: 15px;
+  box-sizing: border-box;
+  height: 100%; /* 高さをコンテナに合わせる */
+  overflow-y: auto; /* 縦スクロール可能に */
+}
+
+#editor {
+  border-right: 1px solid #ccc;
+  font-family: monospace;
+  font-size: 16px; /* 少し文字大きめで見やすく */
+  min-width: 300px; /* 最低幅確保 */
+  resize: none; /* 伸縮禁止 */
+  min-width: 400px;   /* 幅を広げる */
+  font-size: 18px;    /* 文字をもう少し大きく */
+  line-height: 1.5;   /* 行間も広めに */
+
+}
+
+#preview {
+  background: #fafafa;
+}
